@@ -10,7 +10,7 @@ Don't know about you, but this feels bit too long to try to write this from your
 > Note: Please copy `Dockerfile` and `ping.rb` from Part 3 or Part 4. We're not gonna modify them, but we will use them
 
 ## Docker Compose
-This is where `docker-compose` comes in handy. It's a tool that allows you to specify all attributes you pass into your containers into YAML file and run that all at once.
+This is where `docker compose` command comes in handy. It's a command that allows you to specify all attributes you pass into your containers into YAML file and run that all at once.
 
 Lets start with simple `docker-compose.yml` and for now lets ignore all redis persistance. Just to keep things simple.
 
@@ -35,7 +35,7 @@ services:
 You can see that we specify two services. First is `redis` that uses `redis:latest` image; another one is `ping` that contains `build` hash specifying dockerfile and context. It also depends on `redis` service; exposes port 4567 and sets two environment variables.
 
 ## Build
-Lets try to build it with `docker-compose build`. If all goes as expected, you should see similar output
+Lets try to build it with `docker compose build` ([docs: "docker compose build"](https://docs.docker.com/engine/reference/commandline/compose_build/). If all goes as expected, you should see similar output
 
 ```sh
 [+] Building 2.3s (9/9) FINISHED
@@ -68,7 +68,7 @@ part_6_ping           latest                               495d5fb0c318   About 
 This repository name `part_6_ping` is auto generated. I believe it consists of current folder name and service.
 
 ## Run it
-Now that we've build it, lets try to run it with `docker-compose up`. This will create a new containers for each service and launch them. You should see similar output.
+Now that we've build it, lets try to run it with `docker compose up` ([docs: "docker compose up"](https://docs.docker.com/engine/reference/commandline/compose_up/). This will create a new containers for each service and launch them. You should see similar output.
 
 ```sh
 [+] Running 3/3
@@ -115,7 +115,7 @@ CONTAINER ID   IMAGE             COMMAND                  CREATED              S
 ba072e1b8235   redis:latest      "docker-entrypoint.s…"   About a minute ago   Exited (0) 30 seconds ago                part_6-redis-1
 ```
 
-Once you have a containers created, you can simply `docker-compose start` which will result with
+Once you have a containers created, you can simply `docker compose start` ([docs: "docker compose start"](https://docs.docker.com/engine/reference/commandline/compose_start/) which will result with
 
 ```sh
 [+] Running 2/2
@@ -123,10 +123,10 @@ Once you have a containers created, you can simply `docker-compose start` which 
  ⠿ Container part_6-ping-1   Started                                                                                         0.2s
 ```
 
-Give `docker ps -a` another look and you will see them up and running. Doing `docker-compose stop` will stop them.
+Give `docker ps -a` another look and you will see them up and running. Doing `docker compose stop` ([docs: "docker compose stop"](https://docs.docker.com/engine/reference/commandline/compose_stop/) will stop them.
 
 ## Tear it down
-Sometimes you wanna delete all the containers and start from scratch. In that case do `docker-compose down` and it will clean up everything for you.
+Sometimes you wanna delete all the containers and start from scratch. In that case do `docker compose down` ([docs: "docker compose down"](https://docs.docker.com/engine/reference/commandline/compose_down/) and it will clean up everything for you.
 
 ```sh
 [+] Running 3/2
@@ -136,7 +136,7 @@ Sometimes you wanna delete all the containers and start from scratch. In that ca
 ```
 
  ---
- Now you've learned basic commands of docker-compose tool. You know how to write your own docker-compose.yml file, link multiple services, publish your ports and configure environment variables.
+ Now you've learned basic commands of `docker compose` command. You know how to write your own docker-compose.yml file, link multiple services, publish your ports and configure environment variables.
 
 Thats it for Part 6.
 
