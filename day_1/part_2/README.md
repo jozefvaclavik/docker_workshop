@@ -14,8 +14,10 @@ ENTRYPOINT ./script.sh
 
 This `Dockerfile` is an image definition. You can use this definition to build docker image. Each line will build intermediate docker image that is used as a cache when building same or other images out of it.
 
-You may remember I mentioned that every docker image needs to reference another docker image. This is what first line of `Dockerfile` is for. You specify out of what docker image you want yours to start. In our case its `FROM busybox:latest`
+The first line of every `Dockerfile` is a reference to another image. You specify out of what docker image you want yours to start. In our case its `FROM busybox:latest`
+
 Second line copies our `script.sh` into the image.
+
 Every docker image should have either `ENTRYPOINT` or `CMD` at the end. (Ehm, after almost 10 years working with docker, I still dont know the difference out of my head. There is, I swear. Just read the damn docs.) This gets executed when someone tries to run container from the image. In our case we're gonna execute the script we wrote.
 
 Here is content of `script.sh`
@@ -27,7 +29,7 @@ date
 Yup. That was it. Lets just print date. Don't forget to add executable flag to it. `chmod +x script.sh` otherwise docker will not be able to execute it.
 
 ## Build that image
-Now its time to build that image. Run `docker build .` ([docs: "docker build"](https://docs.docker.com/engine/reference/commandline/build/)) and you should see something like
+Now its time to build that image. Write `docker build .`[^1] into your terminal. This command looks up for `Dockerfile` in a current folder and passes `.` folder as a context into build. The context part is important as this is what gives docker access to your file system. As you noticed, we're trying to `COPY ./script.sh script.sh`. That means the file needs to be available inside of the context folder.  Otherwise it will error out. When you hit `Enter`, you should see something like
 
 ```sh
 [+] Building 3.7s (8/8) FINISHED
@@ -65,9 +67,9 @@ REPOSITORY            TAG                                  IMAGE ID       CREATE
 <none>                <none>                               1ace621ca581   2 minutes ago   1.41MB
 ```
 
-But this doesnt look right. There is no repository and no tag mentioned. Ugh. Did we just mess up?
+But this doesn't look right. There is no repository and no tag mentioned. Ugh. Did we just mess up?
 
-This is similar behaviour like when creating containers. If you don't specify it during build, it will end up as untagged image. You can either tag it afterwards by referencing Image ID `docker tag 1ace621ca581 day_1:part_2`, or specify tag during `docker build -t day_1:part_2 .`. Do either one of that and next time you list your `docker images`, you will see
+This is somewhat similar behaviour like when creating containers. If you don't specify it during build, it will end up as untagged image. You can either tag it afterwards by referencing Image ID with `docker tag 1ace621ca581 day_1:part_2`[^2], or specify tag during `docker build -t day_1:part_2 .`. Do either one of that and next time you list your `docker images`, you will see
 
 ```sh
 REPOSITORY            TAG                                  IMAGE ID       CREATED         SIZE
@@ -79,14 +81,14 @@ Now thats better.
 ## Run the container
 Ok, so we've build our own docker image that will run script that prints current date. Lets try to run it `docker run day_1:part_2` and you should see output of current date and then it will exit.
 
-Now its time to list containers and images and clean that up. As you didnt provide `--rm` into the above run command, one the container exits, it stays created.
+Now it is time to list containers and images and clean that up. As you didnt pass `--rm` into the above `run` command, once the container exits, it stays around.
 
 ```sh
 CONTAINER ID   IMAGE             COMMAND                  CREATED              STATUS                          PORTS        NAMES
 71684bb56359   day_1:part_2      "/bin/sh -c ./script…"   About a minute ago   Exited (0) About a minute ago                elated_albattani
 ```
 
-You can delete this container by either its Container ID or by its Name. `docker rm 71684bb56359` or `docker rm elated_albattani`. [docs: "docker rm"](https://docs.docker.com/engine/reference/commandline/rm/)
+You can delete this container by either its Container ID or by its Name. `docker rm 71684bb56359` or `docker rm elated_albattani` [^3].
 
 Now check out your `docker images` and if you played around and tried to build the above image multiple times, you may noticed couple untagged images. You can't have multiple images with same tag. Last build always untags previous images if the tag was already used. So lets clean them up. For untagged ones, you gotta used Image ID, and for tagged one just used the repository:tag combination. `docker rmi day_1:part_2` and `docker rmi fc12c2dcf10a 1ace621ca581` or whatever untagged Image IDs you see there.
 
@@ -96,3 +98,7 @@ Now you've learned how to write your own `Dockerfile`, build and run it.
 Thats it for Part 2.
 
 ## Questions?
+
+[^1]: [docs: "docker build"](https://docs.docker.com/engine/reference/commandline/build/)
+[^2]: [docs: "docker tag"](https://docs.docker.com/engine/reference/commandline/tag/)
+[^3]: [docs: "docker rm"](https://docs.docker.com/engine/reference/commandline/rm/)
