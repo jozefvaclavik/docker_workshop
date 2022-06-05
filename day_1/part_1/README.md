@@ -2,16 +2,16 @@
 
 Back in 2009-2012 was a period when it was easier to run development environment on virtual machine then on a MacOS. There was no Homebrew, no ruby-buils, easiest way to install/run postgres/mysql was through LAMP type of packaged apps. Any upgrade of MacOS between major versions would mean that things were broken for 1-2 months.
 
-Virtual machines had one issue. You couldnt easily move them around or rebuild them if you needed. You could take dumps/snapshots, but to be fair, this was time CPUs in MBP has 2 cores and 200GB drives were kinda default so having 20GB snapshot laying around wasn't really reasonable.
+Virtual machines had one issue. You couldn't easily move them around or rebuild them if you needed. You could take dumps/snapshots, but to be fair, this was time CPUs in MBP has 2 cores and 200GB drives were kinda default so having 20GB snapshot laying around wasn't really reasonable.
 
-This was when docker came in and I started experimenting with it. Docker is not a full virtualization. That means it's not as reasource heavy as VM. It relies on images build based on Dockerfile and creates running containers from them. Containers are persistent only while they are created, once you delete a container, its data is gone. This is one important difference between running VMs and containers.
+This was when docker came in and I started experimenting with it. Docker is not a full virtualization, it's more of an isolation of binaries while sharing same resources. That means it's not as reasource heavy as VM. It relies on images build based on Dockerfile and creates running containers from them.
 
 That was enough history, lets get started. Hope by now you have docker installed locally, so lets create some containers in practice.
 
 ## Welcome to Busybox
 Buxybox is the smallest and simplest linux image available (1-5MB). Lets run that and see what happens.
 
-Run `docker run -it --rm busybox`, [docs: "docker run"](https://docs.docker.com/engine/reference/commandline/run/)
+Run `docker run -it --rm busybox` [^1].
 
 Then you should see something like this:
 
@@ -26,7 +26,7 @@ Status: Downloaded newer image for busybox:latest
 
 Lets go line by line to see what happened. The command we just ran said: "Hey docker, run interactively busybox image and delete it once I'm done with it."
 
-The first line of output said that docker could not find busybox:latest locally. Second line said that docker is pulling it from library/busybox and after that there are some details about ID of image it downloaded, it status and some digest/sha verification. At the end you get some final status message and you are welcomed with a prompt. This prompt is inside of the busybox container.
+The first line of output said that docker could not find `busybox:latest` locally. Second line said that docker is pulling it from `library/busybox` and after that there are some details about ID of image it downloaded, it status and some digest/sha verification. At the end you get some final status message and you are welcomed with a prompt. This prompt is inside of the busybox container.
 
 You can test that by calling
 
@@ -38,7 +38,7 @@ Linux 85a6c3b1bc4a 5.10.104-linuxkit #1 SMP PREEMPT Thu Mar 17 17:05:54 UTC 2022
 You can run some other linux commands and have some fun with it.
 
 ## Containers
-Now open another terminal tab and run `docker ps -a`, [docs: "docker ps"](https://docs.docker.com/engine/reference/commandline/ps/).
+Now open another terminal tab and run `docker ps -a` [^2].
 
 You should see something like
 
@@ -49,12 +49,12 @@ CONTAINER ID   IMAGE             COMMAND                  CREATED         STATUS
 
 This lists all containers on your machine (by default it prints only running containers, `-a` prints containers in any state). You can see that there is one container from image `busybox` and running command `sh`. It was created while ago and has a funky name. If you don't name your container when creating it, docker will assign it random two-word name.
 
-Now lets exit the shell youre running in the container by typing `exit` or `CTRL+d`. And go ahead and print all containers again. Did you notice any difference? Thats the `-rm` flag passed into `exec` command. It specified that once we're done running it, we wanna delete the container.
+Now lets exit the shell youre running in the container by typing `exit` or `CTRL+d`. And go ahead and print all containers again. Did you notice any difference? Thats the `--rm` flag passed into `run` command. It specified that once we're done running it, we wanna delete the container.
 
 ## Images
 Now that you know how to list your containers, lets also have a look how to list your images that you have stored locally.
 
-Type `docker images` and you will see similar list of all local images. [docs: "docker images"](https://docs.docker.com/engine/reference/commandline/images/)
+Type `docker images` and you will see similar list of all local images [^3].
 
 ```sh
 REPOSITORY            TAG                                  IMAGE ID       CREATED        SIZE
@@ -63,7 +63,7 @@ busybox               latest                               9f509842917a   5 days
 
 You can see that we have a `busybox` image with latest tag and some other details. It really is just 1.41MB.
 
-If you wanna remove existing image (loacly), you can delete it  with `docker rmi busybox:latest` or by passing its image ID `docker rmi 9f509842917a`. [docs: "docker rmi"](https://docs.docker.com/engine/reference/commandline/rmi/)
+If you wanna remove existing image (loacly), you can delete it  with `docker rmi busybox:latest` or by passing its image ID `docker rmi 9f509842917a` [^4].
 
 ```sh
 Untagged: busybox:latest
@@ -80,3 +80,9 @@ Now you've learned the difference between VM and Docker, something about contain
 Thats it for Part 1.
 
 ## Questions?
+
+
+[^1]: [docs: "docker run"](https://docs.docker.com/engine/reference/commandline/run/)
+[^2]: [docs: "docker ps"](https://docs.docker.com/engine/reference/commandline/ps/)
+[^3]: [docs: "docker images"](https://docs.docker.com/engine/reference/commandline/images/)
+[^4]: [docs: "docker rmi"](https://docs.docker.com/engine/reference/commandline/rmi/)
