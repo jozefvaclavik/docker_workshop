@@ -1,6 +1,6 @@
 # Part 2
 
-Now that we have docker running, we understand the concepts of images and containers its time to go step one forward.
+Now that we have docker container running, we understand the concepts of images and containers its time to go step one forward.
 
 Lets build our own docker image!
 
@@ -60,7 +60,7 @@ That is lots of lines. There are just 2 important things that has happened.
 1. As we deleted `busybox:latest` in previous part, docker now had to download it again. This happened in the part of `[1/2]`.
 2. We copied our `script.sh` in `[2/2]`.
 
-Thats it. Now if you list your `docker images` you're gonna see it.
+Thats it. Now if you list your `docker image ls` you're gonna see it.
 
 ```sh
 REPOSITORY            TAG                                  IMAGE ID       CREATED         SIZE
@@ -69,7 +69,7 @@ REPOSITORY            TAG                                  IMAGE ID       CREATE
 
 But this doesn't look right. There is no repository and no tag mentioned. Ugh. Did we just mess up?
 
-This is somewhat similar behaviour like when creating containers. If you don't specify it during build, it will end up as untagged image. You can either tag it afterwards by referencing Image ID with `docker tag 1ace621ca581 day_1:part_2`[^2], or specify tag during `docker build -t day_1:part_2 .`. Do either one of that and next time you list your `docker images`, you will see
+This is somewhat similar behaviour like when creating containers. If you don't specify it during build, it will end up as untagged image. You can either tag it afterwards by referencing Image ID with `docker image tag 1ace621ca581 day_1:part_2`[^2], or specify tag during `docker build -t day_1:part_2 .`. Do either one of that and next time you list your `docker image ls`, you will see
 
 ```sh
 REPOSITORY            TAG                                  IMAGE ID       CREATED         SIZE
@@ -79,7 +79,7 @@ day_1                 part_2                               1ace621ca581   5 minu
 Now thats better.
 
 ## Run the container
-Ok, so we've build our own docker image that will run script that prints current date. Lets try to run it `docker run day_1:part_2` and you should see output of current date and then it will exit.
+Ok, so we've build our own docker image that will run script that prints current date. Lets try to run it `docker container run day_1:part_2` and you should see output of current date and then it will exit.
 
 Now it is time to list containers and images and clean that up. As you didnt pass `--rm` into the above `run` command, once the container exits, it stays around.
 
@@ -88,9 +88,9 @@ CONTAINER ID   IMAGE             COMMAND                  CREATED              S
 71684bb56359   day_1:part_2      "/bin/sh -c ./script…"   About a minute ago   Exited (0) About a minute ago                elated_albattani
 ```
 
-You can delete this container by either its Container ID or by its Name. `docker rm 71684bb56359` or `docker rm elated_albattani` [^3].
+You can delete this container by either its Container ID or by its Name. `docker container rm 71684bb56359` or `docker container rm elated_albattani` [^3].
 
-Now check out your `docker images` and if you played around and tried to build the above image multiple times, you may noticed couple untagged images. You can't have multiple images with same tag. Last build always untags previous images if the tag was already used. So lets clean them up. For untagged ones, you gotta used Image ID, and for tagged one just used the repository:tag combination. `docker rmi day_1:part_2` and `docker rmi fc12c2dcf10a 1ace621ca581` or whatever untagged Image IDs you see there.
+Now check out your `docker image ls` and if you played around and tried to build the above image multiple times, you may noticed couple untagged images. You can't have multiple images with same tag. Last build always untags previous images if the tag was already used. So lets clean them up. For untagged ones, you gotta used Image ID, and for tagged one just used the repository:tag combination. `docker image rm day_1:part_2` and `docker image rm fc12c2dcf10a 1ace621ca581` or whatever untagged Image IDs you see there.
 
 ---
 Now you've learned how to write your own `Dockerfile`, build and run it.
@@ -100,5 +100,5 @@ Thats it for Part 2.
 ## Questions?
 
 [^1]: [docs: "docker build"](https://docs.docker.com/engine/reference/commandline/build/)
-[^2]: [docs: "docker tag"](https://docs.docker.com/engine/reference/commandline/tag/)
-[^3]: [docs: "docker rm"](https://docs.docker.com/engine/reference/commandline/rm/)
+[^2]: [docs: "docker image tag"](https://docs.docker.com/engine/reference/commandline/tag/)
+[^3]: [docs: "docker container rm"](https://docs.docker.com/engine/reference/commandline/rm/)

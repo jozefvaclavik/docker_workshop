@@ -1,9 +1,9 @@
 # Part 6
 Dont know about you, but I would say things are getting bit out of hands here. Just check the length of these commands.
 
-`docker run --detach --name redis --volume /tmp/redis:/data redis:latest redis-server --save 60 1 --loglevel warning`
+`docker container run --detach --name redis --volume /tmp/redis:/data redis:latest redis-server --save 60 1 --loglevel warning`
 
-`docker run --rm --publish 4567:4567 --env APP_ENV=production --env REDIS_URL=redis://redis:6379/0 --link redis day_1:part_6`
+`docker container run --rm --publish 4567:4567 --env APP_ENV=production --env REDIS_URL=redis://redis:6379/0 --link redis day_1:part_6`
 
 Don't know about you, but this feels bit too long to try to write this from your head.
 
@@ -58,7 +58,7 @@ Lets try to build it with `docker compose build` [^1]. If all goes as expected, 
 Use 'docker scan' to run Snyk tests against images to find vulnerabilities and learn how to fix them
 ```
 
-You can see the build was actually re-using already cached images. If you list `docker images`, you will see one new line
+You can see the build was actually re-using already cached images. If you list `docker image ls`, you will see one new line
 
 ```sh
 REPOSITORY            TAG                                  IMAGE ID       CREATED             SIZE
@@ -107,7 +107,7 @@ Stop with with `CTRL+d`.
 canceled
 ```
 
-Now go ahead and inspect containers with `docker ps -a`. You're gonna see two new containers. One for each service.
+Now go ahead and inspect containers with `docker container ls -a`. You're gonna see two new containers. One for each service.
 
 ```sh
 CONTAINER ID   IMAGE             COMMAND                  CREATED              STATUS                      PORTS        NAMES
@@ -123,7 +123,7 @@ Once you have a containers created, you can simply `docker compose start` [^3].
  ⠿ Container part_6-ping-1   Started                                                                                         0.2s
 ```
 
-Give `docker ps -a` another look and you will see them up and running. Doing `docker compose stop` [^4] will stop them.
+Give `docker container ls -a` another look and you will see them up and running. Doing `docker compose stop` [^4] will stop them.
 
 ## Tear it down
 Sometimes you wanna delete all the containers and start all over again from scratch. In that case do `docker compose down` [^5] and it will clean up everything for you.

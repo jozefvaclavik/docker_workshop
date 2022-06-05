@@ -7,7 +7,7 @@ We've build a pretty sweet app. Unfortunately having counter only on a process l
 ## Redis
 Redis is cool, light, easy and it literally never causes any troubles. We're gonna use it here.
 
-Run `docker run --detach --name redis redis:latest`. We're gonna run community maintained Redis image. You may have noticed this time we're naming the container `--name redis` and we're passing `--detach` flag. Detaching will run the container on the background. You should see a long Container ID in output and you can check if everything is running with `docker ps -a`
+Run `docker container run --detach --name redis redis:latest`. We're gonna run community maintained Redis image. You may have noticed this time we're naming the container `--name redis` and we're passing `--detach` flag. Detaching will run the container on the background. You should see a long Container ID in output and you can check if everything is running with `docker container ls -a`
 
 ```sh
 CONTAINER ID   IMAGE             COMMAND                  CREATED         STATUS         PORTS         NAMES
@@ -43,7 +43,7 @@ As we now require new gem, we're gonna have to install it in our `Dockerfile`. M
 ## Build & Run
 Time to build current image with `docker build -t day_1:part_4 .`.
 
-As mentioned above, we're gonna have to pass in ENV variable with `REDIS_URL` value. So lets modify our the run command to `docker run --rm --publish 4567:4567 --env APP_ENV=production --env REDIS_URL=redis://redis:6379/0 day_1:part_4`.
+As mentioned above, we're gonna have to pass in ENV variable with `REDIS_URL` value. So lets modify our the run command to `docker container run --rm --publish 4567:4567 --env APP_ENV=production --env REDIS_URL=redis://redis:6379/0 day_1:part_4`.
 
 When you `open http://localhost:4567`, you're gonna get `Internal Server Error`. Ups. Did we mess up again?
 
@@ -51,7 +51,7 @@ Exposing port allows your container to be talked to. Unfortunately as they all l
 
 Now as we're still using `--rm` argument, once you exit the container it will delete it. Previously when you would run it again, counter would start from 0. Now as thats persisted in redis, Rounter will keep increasing.
 
-If you wanna play with it bit more, go ahead and `docker stop redis` [^1], `docker rm redis` and then start it again with `docker run --detach --name redis redis:latest`. As you just re-created the `redis` container, next time you run the app, counter will start from 0 again.
+If you wanna play with it bit more, go ahead and `docker stop redis` [^1], `docker container rm redis` and then start it again with `docker container run --detach --name redis redis:latest`. As you just re-created the `redis` container, next time you run the app, counter will start from 0 again.
 
 ---
 Now you've learned how to talk to Redis in Sinatra. How to launch redis container and how to link it to your apps container so they can talk to each other.

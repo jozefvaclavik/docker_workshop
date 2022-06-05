@@ -49,11 +49,11 @@ Run `docker build -t day_1:part_3 .` to build the image and tag it `day_1:part_3
 There really isn't more to it.
 
 ## Run the app!
-Run `docker run --rm day_1:part_3` and `open http://localhost:4567`. What do you see?
+Run `docker container run --rm day_1:part_3` and `open http://localhost:4567`. What do you see?
 
 Yup. Nothing. Nada. Time to go down the rabbit hole and try to figure out why.
 
-If you run `docker ps -a` you are gonna see your container running. As we didn't name it, it's gonna have a funky name.
+If you run `docker container ls -a` you are gonna see your container running. As we didn't name it, it's gonna have a funky name.
 
 ```sh
 CONTAINER ID   IMAGE             COMMAND                  CREATED              STATUS                   PORTS         NAMES
@@ -85,7 +85,7 @@ As I mentioned in Part 1, docker does lots of isolation while sharing existing r
 
 Add `EXPOSE 4567/tcp` at the end of `Dockerfile` and build the image again. I'm not gonna tell you how. By now, you should know how. Am I right?
 
-Then run it and check its status with `docker ps -a`.
+Then run it and check its status with `docker container ls -a`.
 
 ```sh
 CONTAINER ID   IMAGE             COMMAND                  CREATED         STATUS         PORTS         NAMES
@@ -96,7 +96,7 @@ Awesome! Now you can se that we have exposed port 4567. On your local machine, `
 
 Wait, what? It still doesn't work? Now this is getting frustrating, right?
 
-Exposing port from your container opens it up to other docker containers on the same network. This does not mean you can access it from your host. To do that, you need to publish port from this network to your host in your `docker run` command. Lets try that with `docker run --rm --publish 4567:4567 day_1:part_3`.
+Exposing port from your container opens it up to other docker containers on the same network. This does not mean you can access it from your host. To do that, you need to publish port from this network to your host in your `docker container run` command. Lets try that with `docker container run --rm --publish 4567:4567 day_1:part_3`.
 
 Unfortunately it still doesn't work. What is going on?
 
@@ -106,7 +106,7 @@ We've actually hit a configuration issue in Sinatra. By default Sinatra runs in 
 
 To do this, we need to pass in ENV variable `APP_ENV` with value `production`.
 
-Do that with `docker run --rm --publish:4567:4567 --env APP_ENV=production day_1:part_3` and you may notice that now puma starts with `Environment: production`. `open http://localhost:4567` and you will see `Pong 1` and on next refresh, its gonna be `Pong 2` and so on.
+Do that with `docker container run --rm --publish:4567:4567 --env APP_ENV=production day_1:part_3` and you may notice that now puma starts with `Environment: production`. `open http://localhost:4567` and you will see `Pong 1` and on next refresh, its gonna be `Pong 2` and so on.
 
 > Wanna hear a funny story? In 2012/2013 there was a somewhat spike in people scanning servers for opened MongoDB databases, downloading their data and deleting it on the node with asking for BTC in return. Basically ransomware. This was possible, coz MongoDB by default doesn't use any authentication. I was then running private app for couple hundred users. This was all hosted on bare servers, so everything was configured manually. I used `iptables` as a firewall. All super tight, but tbh I didn't had much experience with `iptables` and I asked more experienced person to set it up. Everything was running fine. Then we migrated to docker. Basically build production image on every deploy and run it. I was being smart-ass and decided to put all databases in docker as well. But here's the bummer. If you specify `--publish 4567:4567`, docker will work with `iptables` to _publish_ it everywhere. Yup. It will open this port to public. You need to explicitly specify `--publish 127.0.0.1:4567:4567` to explicitly make it available only for `localhost`, but not to the rest of the world. Sigh. Well. I had backups, so I gave middle finger to ransom guys and moved on. Obviously after learning it the hard way.
 
@@ -117,7 +117,7 @@ Thats it for Part 3.
 
 ## Questions?
 
-#### Difference between `docker run` and `docker exec`?
+#### Difference between `docker container run` and `docker exec`?
 - `run` creates a new container from image and runs the command in it.
 - `exec` executes the command in already running container.
 

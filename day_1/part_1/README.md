@@ -11,7 +11,7 @@ That was enough history, lets get started. Hope by now you have docker installed
 ## Welcome to Busybox
 Buxybox is the smallest and simplest linux image available (1-5MB). Lets run that and see what happens.
 
-Run `docker run -it --rm busybox` [^1].
+Run `docker container run -it --rm busybox` [^1].
 
 Then you should see something like this:
 
@@ -38,7 +38,7 @@ Linux 85a6c3b1bc4a 5.10.104-linuxkit #1 SMP PREEMPT Thu Mar 17 17:05:54 UTC 2022
 You can run some other linux commands and have some fun with it.
 
 ## Containers
-Now open another terminal tab and run `docker ps -a` [^2].
+Now open another terminal tab and run `docker container ls -a` [^2].
 
 You should see something like
 
@@ -54,7 +54,7 @@ Now lets exit the shell youre running in the container by typing `exit` or `CTRL
 ## Images
 Now that you know how to list your containers, lets also have a look how to list your images that you have stored locally.
 
-Type `docker images` and you will see similar list of all local images [^3].
+Type `docker image ls` and you will see similar list of all local images [^3].
 
 ```sh
 REPOSITORY            TAG                                  IMAGE ID       CREATED        SIZE
@@ -63,7 +63,7 @@ busybox               latest                               9f509842917a   5 days
 
 You can see that we have a `busybox` image with latest tag and some other details. It really is just 1.41MB.
 
-If you wanna remove existing image (loacly), you can delete it  with `docker rmi busybox:latest` or by passing its image ID `docker rmi 9f509842917a` [^4].
+If you wanna remove existing image (loacly), you can delete it  with `docker image rm busybox:latest` or by passing its image ID `docker image rm 9f509842917a` [^4].
 
 ```sh
 Untagged: busybox:latest
@@ -72,7 +72,7 @@ Deleted: sha256:9f509842917afa47c9cdfa360d23641e013e8590ca4a476e434bbe9c4fda41be
 Deleted: sha256:954b5f64facaacc791fd27fc3115af390bd5c5c105e5dfe0702805d95a126e5d
 ```
 
-You may wonder where did this `busybox` image magically  appeared. Docker maintains a registry of docker images. Some of these are community maintained/official images, others are public or private images. In this case `busybox` is a community maintained docker image that comes from https://hub.docker.com/_/busybox
+You may wonder where did this `busybox` image magically  appeared. Docker maintains a registry of docker image ls. Some of these are community maintained/official images, others are public or private images. In this case `busybox` is a community maintained docker image that comes from https://hub.docker.com/_/busybox
 
 ---
 Now you've learned the difference between VM and Docker, something about containers and something about images.
@@ -82,7 +82,7 @@ Thats it for Part 1.
 ## Questions?
 
 
-[^1]: [docs: "docker run"](https://docs.docker.com/engine/reference/commandline/run/)
-[^2]: [docs: "docker ps"](https://docs.docker.com/engine/reference/commandline/ps/)
-[^3]: [docs: "docker images"](https://docs.docker.com/engine/reference/commandline/images/)
-[^4]: [docs: "docker rmi"](https://docs.docker.com/engine/reference/commandline/rmi/)
+[^1]: [docs: "docker container run"](https://docs.docker.com/engine/reference/commandline/run/)
+[^2]: [docs: "docker container ls"](https://docs.docker.com/engine/reference/commandline/ps/)
+[^3]: [docs: "docker image ls"](https://docs.docker.com/engine/reference/commandline/images/)
+[^4]: [docs: "docker image rm"](https://docs.docker.com/engine/reference/commandline/rmi/)
