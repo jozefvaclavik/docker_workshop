@@ -27,7 +27,7 @@ date
 Yup. That was it. Lets just print date. Don't forget to add executable flag to it. `chmod +x script.sh` otherwise docker will not be able to execute it.
 
 ## Build that image
-Now its time to build that image. Run `docker build .` and you should see something like
+Now its time to build that image. Run `docker build .` ([docs: "docker build"](https://docs.docker.com/engine/reference/commandline/build/)) and you should see something like
 
 ```sh
 [+] Building 3.7s (8/8) FINISHED
@@ -86,7 +86,7 @@ CONTAINER ID   IMAGE             COMMAND                  CREATED              S
 71684bb56359   day_1:part_2      "/bin/sh -c ./script…"   About a minute ago   Exited (0) About a minute ago                elated_albattani
 ```
 
-You can delete this container by either its Container ID or by its Name. `docker rm 71684bb56359` or `docker rm elated_albattani`.
+You can delete this container by either its Container ID or by its Name. `docker rm 71684bb56359` or `docker rm elated_albattani`. [docs: "docker rm"](https://docs.docker.com/engine/reference/commandline/rm/)
 
 Now check out your `docker images` and if you played around and tried to build the above image multiple times, you may noticed couple untagged images. You can't have multiple images with same tag. Last build always untags previous images if the tag was already used. So lets clean them up. For untagged ones, you gotta used Image ID, and for tagged one just used the repository:tag combination. `docker rmi day_1:part_2` and `docker rmi fc12c2dcf10a 1ace621ca581` or whatever untagged Image IDs you see there.
 

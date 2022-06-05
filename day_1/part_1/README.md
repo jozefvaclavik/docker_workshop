@@ -11,7 +11,7 @@ That was enough history, lets get started. Hope by now you have docker installed
 ## Welcome to Busybox
 Buxybox is the smallest and simplest linux image available (1-5MB). Lets run that and see what happens.
 
-Run `docker run -it --rm busybox`
+Run `docker run -it --rm busybox`, [docs: "docker run"](https://docs.docker.com/engine/reference/commandline/run/)
 
 Then you should see something like this:
 
@@ -38,7 +38,9 @@ Linux 85a6c3b1bc4a 5.10.104-linuxkit #1 SMP PREEMPT Thu Mar 17 17:05:54 UTC 2022
 You can run some other linux commands and have some fun with it.
 
 ## Containers
-Now open another terminal tab and run `docker ps -a`. You should see something like
+Now open another terminal tab and run `docker ps -a`, [docs: "docker ps"](https://docs.docker.com/engine/reference/commandline/ps/).
+
+You should see something like
 
 ```sh
 CONTAINER ID   IMAGE             COMMAND                  CREATED         STATUS         PORTS      NAMES
@@ -52,7 +54,7 @@ Now lets exit the shell youre running in the container by typing `exit` or `CTRL
 ## Images
 Now that you know how to list your containers, lets also have a look how to list your images that you have stored locally.
 
-Type `docker images` and you will see similar list of all local images.
+Type `docker images` and you will see similar list of all local images. [docs: "docker images"](https://docs.docker.com/engine/reference/commandline/images/)
 
 ```sh
 REPOSITORY            TAG                                  IMAGE ID       CREATED        SIZE
@@ -61,7 +63,7 @@ busybox               latest                               9f509842917a   5 days
 
 You can see that we have a `busybox` image with latest tag and some other details. It really is just 1.41MB.
 
-If you wanna remove existing image (loacly), you can delete it  with `docker rmi busybox:latest` or by passing its image ID `docker rmi 9f509842917a`
+If you wanna remove existing image (loacly), you can delete it  with `docker rmi busybox:latest` or by passing its image ID `docker rmi 9f509842917a`. [docs: "docker rmi"](https://docs.docker.com/engine/reference/commandline/rmi/)
 
 ```sh
 Untagged: busybox:latest

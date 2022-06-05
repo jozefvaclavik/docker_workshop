@@ -44,7 +44,7 @@ services:
 ```
 
 ## Build and Up
-Lets `docker-compose build` and then `docker-compose up`. You're  gonna see only `part_7-redis-1` output as our `ping` service is just _hanging around_.
+Lets `docker compose up`, you don't really need to run `docker compose build` because it builds the images automatically. You're  gonna see only `part_7-redis-1` output as our `ping` service is just _hanging around_.
 
 Next step is to connect to it. Use `docker ps -a` to list your running containers. You will need its name to run `docker exec -it part_7-ping-1 bash`
 

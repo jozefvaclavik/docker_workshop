@@ -62,7 +62,7 @@ CONTAINER ID   IMAGE             COMMAND                  CREATED              S
 
 You can _connect_ to any running container and run commands on it. Kinda like SSH into a server. It's cool. Lets check it out.
 
-Run `docker exec -it romantic_wozniak bash`. This executes interactively with TTY bash shell on your container. You could execute any command, but opening bash gives you SSH-like access. You should see your root shell in a container `root@91eabf92376a:/#`.
+Run `docker exec -it romantic_wozniak bash` ([docs: "docker exec"](https://docs.docker.com/engine/reference/commandline/exec/). This executes interactively with TTY bash shell on your container. You could execute any command, but opening bash gives you SSH-like access. You should see your root shell in a container `root@91eabf92376a:/#`.
 
 First lets see what is running on the container with `ps -aux`
 
