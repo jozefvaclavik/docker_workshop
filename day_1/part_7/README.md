@@ -46,7 +46,7 @@ services:
 ## Build and Up
 Lets `docker compose build` and then `docker compose up`. You are gonna see only `part_7-redis-1` output as our `ping` service is just _hanging around_.
 
-Next step is to connect to it. Use `docker container ls -a` to list your running containers. You will need its name to run `docker exec -it part_7-ping-1 bash`.
+Next step is to connect to it. Use `docker container ls -a` to list your running containers. You will need its name to run `docker container exec -it part_7-ping-1 bash`.
 
 Time to test if volume mounting is working as expected. Once you open interactive shell, you will find yourself in `/root/app` and if you do `ls`, you will see `Dockerfile  docker-compose.yml	ping.rb`.
 

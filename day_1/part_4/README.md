@@ -51,7 +51,7 @@ Exposing port allows your container to be talked to. Unfortunately as they all l
 
 Now as we're still using `--rm` argument, once you exit the container it will delete it. Previously when you would run it again, counter would start from 0. Now as thats persisted in redis, Rounter will keep increasing.
 
-If you wanna play with it bit more, go ahead and `docker stop redis` [^1], `docker container rm redis` and then start it again with `docker container run --detach --name redis redis:latest`. As you just re-created the `redis` container, next time you run the app, counter will start from 0 again.
+If you wanna play with it bit more, go ahead and `docker container stop redis` [^1], `docker container rm redis` and then start it again with `docker container run --detach --name redis redis:latest`. As you just re-created the `redis` container, next time you run the app, counter will start from 0 again.
 
 ---
 Now you've learned how to talk to Redis in Sinatra. How to launch redis container and how to link it to your apps container so they can talk to each other.
@@ -61,6 +61,6 @@ Thats it for Part 4.
 ## Questions?
 
 
-[^1]: [docs: "docker stop"](https://docs.docker.com/engine/reference/commandline/stop/)
+[^1]: [docs: "docker container stop"](https://docs.docker.com/engine/reference/commandline/container_stop/)
 
 

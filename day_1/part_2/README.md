@@ -100,5 +100,5 @@ Thats it for Part 2.
 ## Questions?
 
 [^1]: [docs: "docker build"](https://docs.docker.com/engine/reference/commandline/build/)
-[^2]: [docs: "docker image tag"](https://docs.docker.com/engine/reference/commandline/tag/)
-[^3]: [docs: "docker container rm"](https://docs.docker.com/engine/reference/commandline/rm/)
+[^2]: [docs: "docker image tag"](https://docs.docker.com/engine/reference/commandline/image_tag/)
+[^3]: [docs: "docker container rm"](https://docs.docker.com/engine/reference/commandline/container_rm/)
