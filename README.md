@@ -2,6 +2,8 @@
 
 Docker workshop to gain some EXP points.
 
+![workshop](./workshop.png)
+
 ## Day 1
 
 Get well versed with `docker` in [Day 1](./day_1).
