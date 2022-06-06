@@ -2,6 +2,9 @@ version: "3.9"
 services:
   redis:
     image: redis:latest
+    volumes:
+      - /tmp/redis:/data
+    command: redis-server --save 60 1 --loglevel warning
   ping:
     build:
       context: .

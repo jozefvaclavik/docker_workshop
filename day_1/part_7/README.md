@@ -65,6 +65,19 @@ As you can now edit file outside of the container, go ahead and update `puma.rb`
 
 Then run `ruby ping.rb` again. Does it work? If yea, you're gonna see `Hello world 1x`.
 
+## Bonus content
+Adding persistance to `redis` service is actually easier then it seems. Simply add `volumes` with appropriate mapping and overrice `command`. Here is updated redis service.
+
+```yaml
+services:
+  redis:
+    volumes:
+      - /tmp/redis:/data
+    command: redis-server --save 60 1 --loglevel warning
+```
+
+You're gonna have to tear `docker compose down` to clean up existing containers so docker can spinn up new `redis` service with persistence.
+
 ---
 Now you've learned how to modify `docker-compose.yml` to create a local development environment. How to _hack_ your container to do nothing after starting while you _SSH_ into it to run _things_ manually how you would do on your local machine. And all that while editing source code in your favourite editor.
 
